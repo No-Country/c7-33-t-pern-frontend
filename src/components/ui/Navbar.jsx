@@ -25,6 +25,8 @@ const settings = [
 ]
 
 const ResponsiveAppBar = () => {
+  console.log('xx')
+
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
 
