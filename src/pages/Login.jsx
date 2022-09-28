@@ -33,7 +33,6 @@ const Login = () => {
             <TextField
               fullWidth
               label="Password"
-              type="password"
               variant="standard"
               {...register('password', {required: true})}
             />
