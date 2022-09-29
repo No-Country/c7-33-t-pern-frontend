@@ -46,6 +46,7 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
+    "react/prop-types": 0,
     "react/jsx-sort-props": [
       "warn",
       {
