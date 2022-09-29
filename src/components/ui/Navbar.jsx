@@ -18,6 +18,7 @@ const pages = [
   {name: 'Login', location: '/login'},
   {name: 'Profile', location: '/profile'},
   {name: 'Register', location: '/register'},
+  {name: 'ProfileCard', location: '/profilecard'},
 ]
 const settings = [
   {name: 'Profile', location: '/profile'},
