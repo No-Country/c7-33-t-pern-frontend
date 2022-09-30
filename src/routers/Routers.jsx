@@ -6,7 +6,7 @@ import Profile from '../pages/Profile'
 import Register from '../pages/Register'
 import Navbar from '../components/ui/Navbar'
 import Footer from '../components/ui/Footer'
-import ProfileCard from '../components/home/ProfileCard'
+import ProfileContainer from '../components/home/ProfileContainer'
 
 const Routers = () => (
   <BrowserRouter>
@@ -16,7 +16,7 @@ const Routers = () => (
       <Route element={<Login />} path="/login" />
       <Route element={<Profile />} path="/profile/:id" />
       <Route element={<Register />} path="/register" />
-      <Route element={<ProfileCard />} path="/profilecard" />
+      <Route element={<ProfileContainer />} path="/profilecard" />
     </Routes>
     <Footer />
   </BrowserRouter>
