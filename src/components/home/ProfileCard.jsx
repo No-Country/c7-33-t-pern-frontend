@@ -1,19 +1,29 @@
-import * as React from 'react'
-import {styled} from '@mui/material/styles'
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import Collapse from '@mui/material/Collapse'
-import Avatar from '@mui/material/Avatar'
+/* eslint-disable react/no-array-index-key */
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Chip,
+  CircularProgress,
+  Collapse,
+  Divider,
+  Rating,
+  Stack,
+  Tooltip,
+  Typography,
+  Zoom,
+} from '@mui/material'
+import CodeIcon from '@mui/icons-material/Code'
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import {red} from '@mui/material/colors'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
+import {styled} from '@mui/material/styles'
+import {useState} from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
+import {display} from '@mui/system'
 
 const ExpandMore = styled((props) => {
   const {expand, ...other} = props
@@ -27,85 +37,83 @@ const ExpandMore = styled((props) => {
   }),
 }))
 
-// eslint-disable-next-line react/function-component-definition
-export default function RecipeReviewCard() {
-  const [expanded, setExpanded] = React.useState(false)
+const ProfileCard = ({user}) => {
+  const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
 
   return (
-    <Card sx={{maxWidth: 345}}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        avatar={
-          <Avatar aria-label="recipe" sx={{bgcolor: red[500]}}>
-            R
-          </Avatar>
-        }
-        subheader="September 14, 2016"
-        title="Shrimp and Chorizo Paella"
-      />
+    <Card sx={{width: 300}}>
+      <CardHeader subheader={user.title} title={`${user.name} ${user.lastname}`} />
       <CardMedia
-        alt="Paella dish"
+        alt={`${user.name} ${user.lastname}`}
         component="img"
         height="194"
-        image="https://img.freepik.com/free-photo/close-up-portrait-handsome-stylish-young-man-standing-profile-turn-head-with-beaming-smile-express-satisfaction-enthusiasm-standing-white-wall-pleased_176420-33957.jpg?size=626&ext=jpg"
+        image={user.avatar}
       />
       <CardContent>
-        <Typography color="text.secondary" variant="body2">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          aria-expanded={expanded}
-          aria-label="show more"
-          expand={expanded}
-          onClick={handleExpandClick}
+        <div style={{alignItems: 'center', display: 'flex'}}>
+          <Rating readOnly name="read-only" precision={0.5} size="small" value={user.rating} />
+          <div style={{flex: 1}} />
+          <Typography>ver bio</Typography>
+          <ExpandMore
+            aria-expanded={expanded}
+            aria-label="show more"
+            expand={expanded}
+            onClick={handleExpandClick}
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </div>
+        <Collapse unmountOnExit in={expanded} timeout="auto">
+          <Typography color="text.secondary" variant="body2">
+            {user.bio}
+          </Typography>
+        </Collapse>
+        <Stack
+          alignItems="center"
+          direction="row"
+          flexWrap="wrap"
+          justifyContent="center"
+          mb={1}
+          mt={1}
+          style={{height: 60}}
         >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse unmountOnExit in={expanded} timeout="auto">
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
+          {user.technologies.map((technology, idx) => {
+            if (idx < 5) {
+              return (
+                <Chip
+                  key={technology}
+                  color="primary"
+                  icon={<CodeIcon />}
+                  label={technology}
+                  size="small"
+                  sx={{mb: 1, mr: 1}}
+                />
+              )
+            }
+
+            return null
+          })}
+        </Stack>
+        <Stack alignItems="center" direction="row" flexWrap="wrap" justifyContent="center">
+          <CardActions disableSpacing>
+            <Button
+              color="primary"
+              size="medium"
+              startIcon={<ThumbUpOutlinedIcon />}
+              style={{margin: '0 auto'}}
+              variant="outlined"
+            >
+              conectar
+            </Button>
+          </CardActions>
+        </Stack>
+      </CardContent>
     </Card>
   )
 }
+
+export default ProfileCard
