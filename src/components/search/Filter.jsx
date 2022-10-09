@@ -1,71 +1,76 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
-import Button from '@mui/material/Button'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+/* eslint-disable dot-notation */
+import {useEffect, useState} from 'react'
+
+import {Box, Button, Checkbox, FormControlLabel, Drawer} from '@mui/material'
+import techCategories from '../../constants/technologies'
 
 const Filter = () => {
-  const [state, setState] = React.useState({
-    left: false,
-  })
+  const [state, setState] = useState(false) // DRAWER
+  const [checkedCat, setCheckedCat] = useState([]) // FRONTEND - BACKEND - ETC
+  const [checked, setChecked] = useState([]) // REACT - VUE - NODE - ETC
+  const [techCategory, setTechCategory] = useState(techCategories) // Respuesta de la Base de Datos - techCategories.js
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  useEffect(() => {
+    console.log({checkedCat})
+  }, [checkedCat])
+
+  const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
 
-    setState({...state, [anchor]: open})
+    setState(open)
   }
 
-  const list = (anchor) => (
-    <Box
-      role="presentation"
-      sx={{width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+  const handleChange1 = (event, algo) => {
+    /* setChecked([event.target.checked, event.target.checked]) */
+    /* 
+    algo = [{id: 1, name: 'React}, {id: 2, name: 'Vue}]
+    */
+    setCheckedCat([...checkedCat, algo])
+  }
+
+  const handleChange2 = (event) => {
+    event.stopPropagation()
+    /*  setChecked([event.target.checked, checked[1]]) */
+  }
+
+  const list = () => (
+    <Box role="presentation" sx={{width: 250}}>
+      <div>
+        {techCategory.map((techCat) => (
+          <div key={techCat.name}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkedCat.includes((el) => el === techCat.name)} // TODO
+                  /*  indeterminate={checked[0] !== checked[1]} */
+                  onChange={(event) => handleChange1(event, techCat.name)}
+                />
+              }
+              label={techCat.name}
+            />
+            {techCat.tech.map((tech) => (
+              <Box key={tech.name} sx={{display: 'flex', flexDirection: 'column', ml: 3}}>
+                <FormControlLabel
+                  control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
+                  label={tech.name}
+                />
+              </Box>
+            ))}
+          </div>
         ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      </div>
     </Box>
   )
 
   return (
-    <div>
-      {['Filtro'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
-    </div>
+    <>
+      <Button onClick={toggleDrawer(true)}>left</Button>
+      <Drawer anchor="left" open={state} onClose={toggleDrawer(false)}>
+        {list('left')}
+      </Drawer>
+    </>
   )
 }
 
