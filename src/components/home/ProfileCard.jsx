@@ -23,7 +23,6 @@ import IconButton from '@mui/material/IconButton'
 import {styled} from '@mui/material/styles'
 import {useState} from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {display} from '@mui/system'
 
 const ExpandMore = styled((props) => {
   const {expand, ...other} = props
@@ -45,7 +44,7 @@ const ProfileCard = ({user}) => {
   }
 
   return (
-    <Card sx={{width: 300}}>
+    <Card className="card-fondo" sx={{width: 300}}>
       <CardHeader subheader={user.title} title={`${user.name} ${user.lastname}`} />
       <CardMedia
         alt={`${user.name} ${user.lastname}`}
