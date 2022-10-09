@@ -6,7 +6,7 @@ import ProfilePlusContainer from '../components/home/ProfilePlusContainer'
 import Register from '../pages/Register'
 import Navbar from '../components/ui/Navbar'
 import Footer from '../components/ui/Footer'
-import ProfileContainer from '../components/home/ProfileContainer'
+import Search from '../pages/Search'
 
 const Routers = () => (
   <BrowserRouter>
@@ -16,7 +16,7 @@ const Routers = () => (
       <Route element={<Login />} path="/login" />
       <Route element={<ProfilePlusContainer />} path="/profile" />
       <Route element={<Register />} path="/register" />
-      <Route element={<ProfileContainer />} path="/profilecard" />
+      <Route element={<Search />} path="/search" />
     </Routes>
     <Footer />
   </BrowserRouter>
