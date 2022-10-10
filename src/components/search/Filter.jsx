@@ -1,76 +1,131 @@
-/* eslint-disable dot-notation */
-import {useEffect, useState} from 'react'
-
+import {useCallback, useState} from 'react'
 import {Box, Button, Checkbox, FormControlLabel, Drawer} from '@mui/material'
-import techCategories from '../../constants/technologies'
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings'
 
-const Filter = () => {
-  const [state, setState] = useState(false) // DRAWER
-  const [checkedCat, setCheckedCat] = useState([]) // FRONTEND - BACKEND - ETC
-  const [checked, setChecked] = useState([]) // REACT - VUE - NODE - ETC
-  const [techCategory, setTechCategory] = useState(techCategories) // Respuesta de la Base de Datos - techCategories.js
+const Filter = ({filters, setFilters, setUsers, techCategory}) => {
+  const [drawerState, setDrawerState] = useState(false)
 
-  useEffect(() => {
-    console.log({checkedCat})
-  }, [checkedCat])
+  const chechedCategory = useCallback(
+    (categoryName) => {
+      const total = techCategory.filter((el) => el.name === categoryName)[0].tech.length
+      const total2 = filters.filter((el) => el.name === categoryName)[0]?.tech.length
+
+      return total !== total2 && total2 > 0
+    },
+    [filters]
+  )
+
+  const checkedTech = useCallback(
+    (tech) => {
+      const onlyTechs = filters
+        .map((el) => [...el.tech])
+        .flat()
+        .map((el) => el.name)
+
+      return onlyTechs.includes(tech)
+    },
+    [filters]
+  )
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
 
-    setState(open)
+    if (!open) {
+      console.log(filters)
+
+      const onlyTechs = filters
+        .map((el) => [...el.tech])
+        .flat()
+        .map((el) => el.id)
+
+      console.log('categorías de tecnologías a pedir en el backend: ', onlyTechs)
+      console.log('Disparar fetch al Backend, setear el nuevo estado con los perfiles filtrados')
+      /* setUsers */
+    }
+
+    setDrawerState(open)
   }
 
-  const handleChange1 = (event, algo) => {
-    /* setChecked([event.target.checked, event.target.checked]) */
-    /* 
-    algo = [{id: 1, name: 'React}, {id: 2, name: 'Vue}]
-    */
-    setCheckedCat([...checkedCat, algo])
+  const handleChangeCategory = (_, category) => {
+    const filteredCategory = filters.filter((el) => el.name === category.name)
+
+    if (filteredCategory.length > 0) {
+      const filteredCategory = filters.filter((el) => el.name !== category.name)
+
+      return setFilters([...filteredCategory])
+    }
+
+    return setFilters([...filters, category])
   }
 
-  const handleChange2 = (event) => {
-    event.stopPropagation()
-    /*  setChecked([event.target.checked, checked[1]]) */
-  }
+  const handleChangeTechnology = (_, category, tech) => {
+    const filteredCategory = filters.filter((el) => el.name === category.name)
 
-  const list = () => (
-    <Box role="presentation" sx={{width: 250}}>
-      <div>
-        {techCategory.map((techCat) => (
-          <div key={techCat.name}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkedCat.includes((el) => el === techCat.name)} // TODO
-                  /*  indeterminate={checked[0] !== checked[1]} */
-                  onChange={(event) => handleChange1(event, techCat.name)}
-                />
-              }
-              label={techCat.name}
-            />
-            {techCat.tech.map((tech) => (
-              <Box key={tech.name} sx={{display: 'flex', flexDirection: 'column', ml: 3}}>
-                <FormControlLabel
-                  control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-                  label={tech.name}
-                />
-              </Box>
-            ))}
-          </div>
-        ))}
-      </div>
-    </Box>
-  )
+    if (filteredCategory.length === 0) {
+      setFilters([
+        ...filters,
+        {
+          id: category.id,
+          name: category.name,
+          tech: [tech],
+        },
+      ])
+    } else if (filteredCategory[0].tech.includes(tech)) {
+      const rest = filters.filter((el) => el.name !== category.name)
+      const techFiltered = filteredCategory[0].tech.filter((el) => el.name !== tech.name)
+
+      if (techFiltered.length === 0) {
+        setFilters([...rest])
+      } else {
+        setFilters([...rest, {...filteredCategory[0], tech: [...techFiltered]}])
+      }
+    } else {
+      const rest = filters.filter((el) => el.name !== category.name)
+
+      setFilters([...rest, {...filteredCategory[0], tech: [...filteredCategory[0].tech, tech]}])
+    }
+  }
 
   return (
-    <>
-      <Button onClick={toggleDrawer(true)}>left</Button>
-      <Drawer anchor="left" open={state} onClose={toggleDrawer(false)}>
-        {list('left')}
+    <Box m={1}>
+      <Button onClick={toggleDrawer(true)} startIcon={<DisplaySettingsIcon />} variant="outlined">
+        Aplicar Filtros
+      </Button>
+      <Drawer anchor="left" open={drawerState} onClose={toggleDrawer(false)}>
+        <Box m={1} role="presentation" sx={{width: 200}}>
+          {techCategory.map((techCat) => (
+            <div key={techCat.name}>
+              {/* TODO: Separar este map en otro componente */}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={!!(filters.filter((el) => el.name === techCat.name).length > 0)}
+                    indeterminate={chechedCategory(techCat.name)}
+                    onChange={(event) => handleChangeCategory(event, techCat)}
+                  />
+                }
+                label={techCat.name}
+              />
+              {techCat.tech.map((tech) => (
+                <Box key={tech.name} sx={{display: 'flex', flexDirection: 'column', ml: 3}}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checkedTech(tech.name)}
+                        onChange={(event) => handleChangeTechnology(event, techCat, tech)}
+                      />
+                    }
+                    label={tech.name}
+                  />
+                </Box>
+              ))}
+            </div>
+          ))}
+        </Box>
       </Drawer>
-    </>
+    </Box>
   )
 }
 
