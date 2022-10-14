@@ -1,5 +1,7 @@
 import {Button, Grid, TextField, Typography, Container} from '@mui/material'
 import {useForm} from 'react-hook-form'
+import {useTheme} from '@emotion/react'
+import {Link} from 'react-router-dom'
 
 const Form = ({onSubmit}) => {
   const {
@@ -8,6 +10,8 @@ const Form = ({onSubmit}) => {
     watch,
     formState: {errors},
   } = useForm()
+
+  const {palette} = useTheme()
 
   const password = watch('password1')
   const repeatPassword = watch('password2')
@@ -90,6 +94,14 @@ const Form = ({onSubmit}) => {
               Cancelar
             </Button>
           </Grid>
+        </Grid>
+        <Grid item sx={{paddingBottom: 1}} xs={12}>
+          <Typography variant="caption">
+            Ya tienes una cuenta?{' '}
+            <Link style={{color: palette.primary.main}} to="/login">
+              Ingresa aquí
+            </Link>
+          </Typography>
         </Grid>
       </form>
     </Container>

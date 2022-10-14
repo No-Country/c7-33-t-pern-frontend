@@ -1,4 +1,5 @@
-import {Button, TextField, Typography, Grid, Container, Box} from '@mui/material'
+import {Button, TextField, Typography, Grid, Container, Box, useTheme} from '@mui/material'
+import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 
 const Form = ({onSubmit}) => {
@@ -7,6 +8,8 @@ const Form = ({onSubmit}) => {
     handleSubmit,
     formState: {errors},
   } = useForm()
+
+  const {palette} = useTheme()
 
   return (
     <Container className="container-form">
@@ -52,6 +55,14 @@ const Form = ({onSubmit}) => {
               Cancelar
             </Button>
           </Grid>
+        </Grid>
+        <Grid item sx={{paddingBottom: 1}} xs={12}>
+          <Typography variant="caption">
+            ¿No tienes una cuenta?{' '}
+            <Link style={{color: palette.primary.main}} to="/register">
+              Regístrate aquí
+            </Link>
+          </Typography>
         </Grid>
       </form>
     </Container>

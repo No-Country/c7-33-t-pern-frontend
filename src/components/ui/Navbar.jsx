@@ -1,5 +1,5 @@
-import {Box} from '@mui/material'
-import {Link} from 'react-router-dom'
+import {Box, useTheme} from '@mui/material'
+import {Link, NavLink} from 'react-router-dom'
 import {useState} from 'react'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import styled from '@emotion/styled'
 
 const pages = [
   {name: 'Ingresar', location: '/login'},
@@ -25,9 +26,18 @@ const settings = [
   {name: 'Salir', location: '/'},
 ]
 
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: ${(props) => (props.color ? props.color : 'white')};
+`
+
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+
+  const {palette} = useTheme()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -98,9 +108,15 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Link style={{color: 'inherit', textDecoration: 'none'}} to={page.location}>
+                  <StyledNavLink
+                    color={palette.primary.contrastText}
+                    style={({isActive}) => ({
+                      backgroundColor: isActive && palette.background.paper,
+                    })}
+                    to={page.location}
+                  >
                     <Typography textAlign="center">{page.name}</Typography>
-                  </Link>
+                  </StyledNavLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -131,9 +147,15 @@ const ResponsiveAppBar = () => {
                 sx={{my: 2, color: 'white', display: 'block'}}
                 onClick={handleCloseNavMenu}
               >
-                <Link style={{color: 'inherit', textDecoration: 'none'}} to={page.location}>
+                <StyledNavLink
+                  color={palette.primary.contrastText}
+                  style={({isActive}) => ({
+                    backgroundColor: isActive && palette.primary.dark,
+                  })}
+                  to={page.location}
+                >
                   {page.name}
-                </Link>
+                </StyledNavLink>
               </Button>
             ))}
           </Box>

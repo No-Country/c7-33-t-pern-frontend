@@ -22,7 +22,7 @@ const lightTheme = createTheme({
       contrastText: '#222831',
     },
     error: {
-      main: '#ff0037',
+      main: '#df1743',
     },
   },
   components: {

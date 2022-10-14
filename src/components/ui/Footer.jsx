@@ -48,8 +48,11 @@ const Footer = () => {
             sx={{backgroundColor: palette.primary.main}}
           >
             <Box display={{xs: 'none', sm: 'block'}} lg={9} md={8} sm={5}>
-              <Typography fontWeight="bold" variant="h4">
+              <Typography color={palette.background.paper} fontWeight="bold" variant="h4">
                 TINDEV
+              </Typography>
+              <Typography color={palette.background.paper} variant="body1">
+                &quot;Conecta, gana experienca, crea.&quot;
               </Typography>
             </Box>
             <Grid item lg={3} md={4} sm={7}>
