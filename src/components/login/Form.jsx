@@ -1,4 +1,4 @@
-import {Button, TextField, Typography, Grid, Container} from '@mui/material'
+import {Button, TextField, Typography, Grid, Container, Box} from '@mui/material'
 import {useForm} from 'react-hook-form'
 
 const Form = ({onSubmit}) => {
@@ -47,8 +47,8 @@ const Form = ({onSubmit}) => {
               Ingresar
             </Button>
           </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth color="error" type="reset" variant="contained">
+          <Grid item mb={3} xs={6}>
+            <Button fullWidth color="error" type="reset" variant="text">
               Cancelar
             </Button>
           </Grid>

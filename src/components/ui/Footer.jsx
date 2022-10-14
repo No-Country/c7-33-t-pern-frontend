@@ -1,62 +1,69 @@
-import {Link} from '@mui/material'
-import {Settings} from '@mui/icons-material'
+import {Box, Container, Grid, Stack, Typography, useTheme} from '@mui/material'
 
-const Footer = () => (
-  <footer>
-    <div className="container__footer">
-      <div className="box__footer">
-        <div className="logo">
-          <img alt="" src="Images/devmatch-logo-footer.png" />
-        </div>
-        <div className="terms">
-          <p className="footer__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas impedit cum cumque
-            velit libero officiis quam doloremque reprehenderit quae corporis! Delectus architecto
-            officia praesentium atque laudantium, nam deleniti sapiente deserunt.
-          </p>
-        </div>
-      </div>
-      <div className="box__footer">
-        <h2>Configuración</h2>
-        <Link to={Settings.location}>Ingresar</Link>
-        <Link to={Settings.location}>Registrarse</Link>
-        <Link to={Settings.location}>Mi perfil</Link>
-        <Link to={Settings.location}>Stacks</Link>
-      </div>
+import FooterAuthor from './FooterAuthor'
+import FooterSVG from './FooterSVG'
 
-      <div className="box__footer">
-        <h2>Compañia</h2>
-        <Link to={Settings.location}>Acerca de</Link>
-        <Link to={Settings.location}>Integrantes</Link>
-        <Link to={Settings.location}>Trabajos</Link>
-        <Link to={Settings.location}>Contacto</Link>
-      </div>
+const AUTHORS = [
+  {
+    name: 'Alex 1',
+    linkedin: 'https://www.linkedin.com/in/fededg/',
+    email: 'itati@gmail.com',
+  },
+  {
+    name: 'Alex 2',
+    linkedin: 'https://www.linkedin.com/in/fededg/',
+    email: 'itati@gmail.com',
+  },
+  {
+    name: 'Itatí Romero',
+    linkedin: 'https://www.linkedin.com/in/fededg/',
+    email: 'itati@gmail.com',
+  },
+  {
+    name: 'Federico González',
+    linkedin: 'https://www.linkedin.com/in/fededg/',
+    github: 'https://github.com/FedericoDG',
+    email: 'fede@nazgul.com.ar',
+  },
+]
 
-      <div className="box__footer">
-        <h2>Redes Sociales</h2>
-        <Link to={Settings.location}>
-          {' '}
-          <i className="fab fa-facebook-square" /> Facebook
-        </Link>
-        <Link to={Settings.location}>
-          <i className="fab fa-twitter-square" /> Twitter
-        </Link>
-        <Link to={Settings.location}>
-          <i className="fab fa-linkedin" /> Linkedin
-        </Link>
-        <Link to={Settings.location}>
-          <i className="fab fa-instagram-square" /> Instagram
-        </Link>
-      </div>
-    </div>
+const Footer = () => {
+  const {palette} = useTheme()
 
-    <div className="box__copyright">
-      <hr />
-      <p>
-        © 2022 <b>C7-33</b>
-      </p>
-    </div>
-  </footer>
-)
+  return (
+    <footer className="custom-shape-divider-top-1665705481">
+      <Box>
+        <FooterSVG />
+        <Container maxWidth="xl">
+          <Grid
+            container
+            flex
+            alignItems="center"
+            color={palette.background.default}
+            justifyContent="space-around"
+            px={5}
+            sx={{backgroundColor: palette.success.main}}
+          >
+            <Box display={{xs: 'none', sm: 'block'}} lg={9} md={8} sm={5}>
+              <Typography fontWeight="bold" variant="h4">
+                TinDev
+              </Typography>
+            </Box>
+            <Grid item lg={3} md={4} sm={7}>
+              <Typography fontWeight="bold" variant="h6">
+                Autores
+              </Typography>
+              <Stack>
+                {AUTHORS.map((author) => (
+                  <FooterAuthor key={`${author.name} ${author.lastname}`} author={author} />
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </footer>
+  )
+}
 
 export default Footer

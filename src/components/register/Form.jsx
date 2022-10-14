@@ -85,8 +85,8 @@ const Form = ({onSubmit}) => {
               Registrarse
             </Button>
           </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth color="error" type="reset" variant="contained">
+          <Grid item mb={3} xs={6}>
+            <Button fullWidth color="error" type="reset" variant="text">
               Cancelar
             </Button>
           </Grid>

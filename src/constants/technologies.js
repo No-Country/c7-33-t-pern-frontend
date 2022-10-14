@@ -23,6 +23,16 @@ const techCategories = [
       },
     ],
   },
+  {
+    id: '3',
+    name: 'Diseño',
+    tech: [
+      {
+        id: '4',
+        name: 'UX/UI',
+      },
+    ],
+  },
 ]
 
 export default techCategories

@@ -1,5 +1,5 @@
+import {Box, Button, Checkbox, FormControlLabel, Drawer, Chip, Divider} from '@mui/material'
 import {useCallback, useState} from 'react'
-import {Box, Button, Checkbox, FormControlLabel, Drawer} from '@mui/material'
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings'
 
 const Filter = ({filters, setFilters, setUsers, techCategory}) => {
@@ -89,12 +89,27 @@ const Filter = ({filters, setFilters, setUsers, techCategory}) => {
   }
 
   return (
-    <Box m={1}>
-      <Button onClick={toggleDrawer(true)} startIcon={<DisplaySettingsIcon />} variant="outlined">
+    <Box py={1}>
+      <Button
+        color="success"
+        startIcon={<DisplaySettingsIcon />}
+        variant="contained"
+        onClick={toggleDrawer(true)}
+      >
         Aplicar Filtros
       </Button>
       <Drawer anchor="left" open={drawerState} onClose={toggleDrawer(false)}>
-        <Box m={1} role="presentation" sx={{width: 200}}>
+        <Box m={2} role="presentation" sx={{width: 200}}>
+          <Box mb={2} sx={{display: 'flex', justifyContent: 'center'}}>
+            <Chip
+              color="success"
+              icon={<DisplaySettingsIcon />}
+              label="Filtros"
+              size="medium"
+              sx={{p: 2, borderRadius: 2}}
+            />
+          </Box>
+          <Divider />
           {techCategory.map((techCat) => (
             <div key={techCat.name}>
               {/* TODO: Separar este map en otro componente */}
@@ -121,6 +136,7 @@ const Filter = ({filters, setFilters, setUsers, techCategory}) => {
                   />
                 </Box>
               ))}
+              <Divider />
             </div>
           ))}
         </Box>

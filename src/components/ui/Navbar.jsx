@@ -1,25 +1,28 @@
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
 import {Box} from '@mui/material'
+import {Link} from 'react-router-dom'
+import {useState} from 'react'
 import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
+import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 
 const pages = [
-  {name: 'Login', location: '/login'},
-  {name: 'Profile', location: '/profile'},
-  {name: 'Register', location: '/register'},
-  {name: 'Search', location: '/search'},
+  {name: 'Ingresar', location: '/login'},
+  {name: 'Registrarse', location: '/register'},
+  {name: 'Perfiles', location: '/profiles'},
+  {name: 'Perfil', location: '/profile'},
 ]
 const settings = [
-  {name: 'Profile', location: '/profile'},
-  {name: 'Logout', location: '/logout'},
+  {name: 'Mi Perfil', location: '/profile'},
+  {name: 'Salir', location: '/logout'},
 ]
 
 const ResponsiveAppBar = () => {
@@ -42,9 +45,28 @@ const ResponsiveAppBar = () => {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{height: 69}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <FavoriteBorderIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
+          <Link style={{color: 'inherit', textDecoration: 'none'}} to="/">
+            <Typography
+              noWrap
+              sx={{
+                mr: 2,
+                display: {xs: 'none', md: 'flex'},
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+              variant="h6"
+            >
+              TINDEV
+            </Typography>
+          </Link>
+
           <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
             <IconButton
               aria-controls="menu-appbar"
@@ -83,19 +105,25 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-
-          <Link
-            style={{
+          <FavoriteBorderIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
+          <Typography
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: {xs: 'flex', md: 'none'},
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
               color: 'inherit',
-              display: {xs: 'none', md: 'flex'},
               textDecoration: 'none',
             }}
-            to="/"
+            variant="h5"
           >
-            <div className="logo">
-              <img alt="logo" className="logo-img" src="images\devmatch-logo-navbar.png" />
-            </div>
-          </Link>
+            TINDEV
+          </Typography>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Button
@@ -108,6 +136,41 @@ const ResponsiveAppBar = () => {
                 </Link>
               </Button>
             ))}
+          </Box>
+
+          <Box sx={{flexGrow: 0}}>
+            <Tooltip title="Menú">
+              <IconButton sx={{p: 0}} onClick={handleOpenUserMenu}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://img.freepik.com/free-photo/close-up-portrait-handsome-stylish-young-man-standing-profile-turn-head-with-beaming-smile-express-satisfaction-enthusiasm-standing-white-wall-pleased_176420-33957.jpg?size=626&ext=jpg"
+                />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              keepMounted
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              id="menu-appbar"
+              open={Boolean(anchorElUser)}
+              sx={{mt: '45px'}}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Link style={{color: 'inherit', textDecoration: 'none'}} to={setting.location}>
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </Link>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
