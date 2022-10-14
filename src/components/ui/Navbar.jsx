@@ -55,20 +55,20 @@ const ResponsiveAppBar = () => {
   }
 
   return (
-    <AppBar position="static" sx={{height: 69}}>
+    <AppBar position="static" sx={{height: 69, color: palette.primary.contrastText}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <FavoriteBorderIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
+          <FavoriteBorderIcon color="secondary" sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
           <Link style={{color: 'inherit', textDecoration: 'none'}} to="/">
             <Typography
               noWrap
+              color="secondary"
               sx={{
                 mr: 2,
                 display: {xs: 'none', md: 'flex'},
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
                 textDecoration: 'none',
               }}
               variant="h6"
@@ -82,7 +82,7 @@ const ResponsiveAppBar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               aria-label="account of current user"
-              color="inherit"
+              color="secondary"
               size="large"
               onClick={handleOpenNavMenu}
             >
@@ -121,9 +121,10 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <FavoriteBorderIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
+          <FavoriteBorderIcon color="secondary" sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
           <Typography
             noWrap
+            color={palette.secondary.main}
             component="a"
             href=""
             sx={{
@@ -133,7 +134,6 @@ const ResponsiveAppBar = () => {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
               textDecoration: 'none',
             }}
             variant="h5"
@@ -148,9 +148,10 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
               >
                 <StyledNavLink
-                  color={palette.primary.contrastText}
+                  color={palette.secondary.contrastText}
                   style={({isActive}) => ({
                     backgroundColor: isActive && palette.primary.light,
+                    color: isActive && palette.secondary.main,
                   })}
                   to={page.location}
                 >
