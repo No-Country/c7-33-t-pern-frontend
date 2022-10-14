@@ -27,9 +27,9 @@ const lightTheme = createTheme({
   },
   components: {
     MuiAppBar: {
-      defaultProps: {
+      /*       defaultProps: {
         elevation: 0,
-      },
+      }, */
       styleOverrides: {
         root: {
           backgroundColor: '#95E1D3',

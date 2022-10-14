@@ -1,6 +1,7 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
 
 import Form from '../components/register/Form'
+import hero from '../assests/undraw_coding_re_iv62.svg'
 
 const Register = () => {
   const onSubmit = (data) => console.log(data)
@@ -46,11 +47,7 @@ const Register = () => {
             width: '100%',
           }}
         >
-          <img
-            alt="ilustration"
-            src="images/undraw_coding_re_iv62.svg"
-            style={{display: 'block', width: '100%'}}
-          />
+          <img alt="ilustration" src={hero} style={{display: 'block', width: '100%'}} />
         </Box>
       </Grid>
     </Container>

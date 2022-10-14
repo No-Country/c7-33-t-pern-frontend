@@ -2,6 +2,8 @@ import {Button, Box, Grid, Stack, Typography, Container, useTheme} from '@mui/ma
 import {Link} from 'react-router-dom'
 import styled from '@emotion/styled'
 
+import hero from '../assests/undraw_Code_thinking_re_gka2.svg'
+
 const StyledLi = styled.li`
   position: relative;
   &:before {
@@ -84,11 +86,7 @@ const Home = () => {
             width: '100%',
           }}
         >
-          <img
-            alt="ilustration"
-            src="images/undraw_Code_thinking_re_gka2.svg"
-            style={{display: 'block', width: '100%'}}
-          />
+          <img alt="ilustration" src={hero} style={{display: 'block', width: '100%'}} />
         </Box>
       </Grid>
     </Container>

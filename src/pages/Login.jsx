@@ -1,6 +1,7 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
 
 import Form from '../components/login/Form'
+import hero from '../assests/undraw_login_re_4vu2.svg'
 
 const Login = () => {
   const onSubmit = (data) => console.log(data)
@@ -46,11 +47,7 @@ const Login = () => {
             width: '100%',
           }}
         >
-          <img
-            alt="ilustration"
-            src="images/undraw_login_re_4vu2.svg"
-            style={{display: 'block', width: '100%'}}
-          />
+          <img alt="ilustration" src={hero} style={{display: 'block', width: '100%'}} />
         </Box>
       </Grid>
     </Container>
