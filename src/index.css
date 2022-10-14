@@ -16,7 +16,6 @@
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  background-color: #95e1d3;
   height: 210px;
 }
 
@@ -25,10 +24,6 @@
   display: block;
   width: calc(100% + 1.3px);
   height: 50px;
-}
-
-.custom-shape-divider-top-1665705481 .shape-fill {
-  fill: #222831;
 }
 
 .icon {

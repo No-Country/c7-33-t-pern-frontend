@@ -22,7 +22,7 @@ const pages = [
 ]
 const settings = [
   {name: 'Mi Perfil', location: '/profile'},
-  {name: 'Salir', location: '/logout'},
+  {name: 'Salir', location: '/'},
 ]
 
 const ResponsiveAppBar = () => {

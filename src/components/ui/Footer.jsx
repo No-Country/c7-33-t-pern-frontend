@@ -31,7 +31,10 @@ const Footer = () => {
   const {palette} = useTheme()
 
   return (
-    <footer className="custom-shape-divider-top-1665705481">
+    <footer
+      className="custom-shape-divider-top-1665705481"
+      style={{backgroundColor: palette.primary.main}}
+    >
       <Box>
         <FooterSVG />
         <Container maxWidth="xl">
@@ -42,17 +45,15 @@ const Footer = () => {
             color={palette.background.default}
             justifyContent="space-around"
             px={5}
-            sx={{backgroundColor: palette.success.main}}
+            sx={{backgroundColor: palette.primary.main}}
           >
             <Box display={{xs: 'none', sm: 'block'}} lg={9} md={8} sm={5}>
               <Typography fontWeight="bold" variant="h4">
-                TinDev
+                TINDEV
               </Typography>
             </Box>
             <Grid item lg={3} md={4} sm={7}>
-              <Typography fontWeight="bold" variant="h6">
-                Autores
-              </Typography>
+              <Typography variant="h6">AUTORES</Typography>
               <Stack>
                 {AUTHORS.map((author) => (
                   <FooterAuthor key={`${author.name} ${author.lastname}`} author={author} />

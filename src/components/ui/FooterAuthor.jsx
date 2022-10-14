@@ -28,7 +28,7 @@ const FooterAuthor = ({author}) => (
           </a>
         )}
         {author.email && (
-          <a href={`mailto:${author.github}`} rel="noreferrer" style={{color: 'unset'}}>
+          <a href={`mailto:${author.email}`} rel="noreferrer" style={{color: 'unset'}}>
             <EmailIcon className="icon" />
           </a>
         )}
