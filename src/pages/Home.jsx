@@ -66,7 +66,7 @@ const Home = () => {
               </Button>
             </Link>
             <Link to="/register">
-              <Button color="success" size="large" type="button" variant="contained">
+              <Button color="secondary" size="large" type="button" variant="contained">
                 Registrarse
               </Button>
             </Link>

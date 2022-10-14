@@ -1,4 +1,4 @@
-import {Box, Container, Grid, Stack, Typography, useTheme} from '@mui/material'
+import {Box, Container, Divider, Grid, Stack, Typography, useTheme} from '@mui/material'
 
 import FooterAuthor from './FooterAuthor'
 import FooterSVG from './FooterSVG'
@@ -43,20 +43,23 @@ const Footer = () => {
             flex
             alignItems="center"
             color={palette.background.default}
-            justifyContent="space-around"
+            justifyContent="space-between"
             px={5}
             sx={{backgroundColor: palette.primary.main}}
           >
-            <Box display={{xs: 'none', sm: 'block'}} lg={9} md={8} sm={5}>
+            <Box display={{xs: 'none', sm: 'block'}} lg={9} md={8} sm={6}>
               <Typography color={palette.background.paper} fontWeight="bold" variant="h4">
                 TINDEV
               </Typography>
+              <Divider />
               <Typography color={palette.background.paper} variant="body1">
                 &quot;Conecta, gana experienca, crea.&quot;
               </Typography>
             </Box>
-            <Grid item lg={3} md={4} sm={7}>
-              <Typography variant="h6">AUTORES</Typography>
+            <Grid item lg={3} md={4} sm={6} xs={12}>
+              <Typography color={palette.background.paper} fontWeight={500} variant="h6">
+                AUTORES
+              </Typography>
               <Stack>
                 {AUTHORS.map((author) => (
                   <FooterAuthor key={`${author.name} ${author.lastname}`} author={author} />

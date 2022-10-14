@@ -91,7 +91,7 @@ const Filter = ({filters, setFilters, setUsers, techCategory}) => {
   return (
     <Box py={1}>
       <Button
-        color="success"
+        color="info"
         startIcon={<DisplaySettingsIcon />}
         variant="contained"
         onClick={toggleDrawer(true)}
@@ -102,9 +102,9 @@ const Filter = ({filters, setFilters, setUsers, techCategory}) => {
         <Box m={2} role="presentation" sx={{width: 200}}>
           <Box mb={2} sx={{display: 'flex', justifyContent: 'center'}}>
             <Chip
-              color="success"
+              color="info"
               icon={<DisplaySettingsIcon />}
-              label="Filtros"
+              label="FILTROS"
               size="medium"
               sx={{p: 2, borderRadius: 2}}
             />

@@ -8,18 +8,18 @@ const lightTheme = createTheme({
       paper: '#393E46',
     },
     primary: {
-      main: '#F38181',
-      contrastText: '#f9f9f9',
+      main: '#95E1D3',
+      contrastText: '#393E46',
     },
     secondary: {
-      main: '#FCE38A',
+      main: '#F38181',
+      contrastText: '#222831',
     },
     info: {
       main: '#EAFFD0',
     },
     success: {
-      main: '#95E1D3',
-      contrastText: '#222831',
+      main: '#FCE38A',
     },
     error: {
       main: '#df1743',
@@ -32,7 +32,7 @@ const lightTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          backgroundColor: '#F38181',
+          backgroundColor: '#95E1D3',
         },
       },
     },

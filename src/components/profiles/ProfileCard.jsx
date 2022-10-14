@@ -79,7 +79,7 @@ const ProfileCard = ({user}) => {
               return (
                 <Chip
                   key={technology}
-                  color="success"
+                  color="info"
                   icon={<CodeIcon />}
                   label={technology}
                   size="small"

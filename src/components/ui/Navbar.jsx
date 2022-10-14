@@ -28,8 +28,8 @@ const settings = [
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
   color: ${(props) => (props.color ? props.color : 'white')};
 `
 
@@ -109,7 +109,7 @@ const ResponsiveAppBar = () => {
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <StyledNavLink
-                    color={palette.primary.contrastText}
+                    color={palette.primary.main}
                     style={({isActive}) => ({
                       backgroundColor: isActive && palette.background.paper,
                     })}
@@ -150,7 +150,7 @@ const ResponsiveAppBar = () => {
                 <StyledNavLink
                   color={palette.primary.contrastText}
                   style={({isActive}) => ({
-                    backgroundColor: isActive && palette.primary.dark,
+                    backgroundColor: isActive && palette.primary.light,
                   })}
                   to={page.location}
                 >
