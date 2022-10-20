@@ -2,19 +2,13 @@ import {Box, Container, Grid, Paper} from '@mui/material'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
-import Form from '../components/register/Form'
+import Form from '../components/completeRegister/Form'
 import hero from '../assests/undraw_coding_re_iv62.svg'
 
 const Register = () => {
   const url = 'http://localhost:8000/api/v1'
   const navigate = useNavigate()
-  const onSubmit = (data) => {
-    const newUser = {email: data.email, password: data.password1}
-
-    axios.post(`${url}/users/singup`, newUser).then(() => {
-      navigate('/login')
-    })
-  }
+  const onSubmit = (data) => {}
 
   return (
     <Container

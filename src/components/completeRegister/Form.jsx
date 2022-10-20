@@ -1,4 +1,4 @@
-import {Button, Grid, TextField, Typography, Container} from '@mui/material'
+import {Button, Grid, TextField, Typography, Container, Select} from '@mui/material'
 import {useForm} from 'react-hook-form'
 import {useTheme} from '@emotion/react'
 import {Link} from 'react-router-dom'
@@ -23,14 +23,14 @@ const Form = ({onSubmit}) => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Email"
-              type="email"
+              label="Nombre"
+              type="text"
               variant="standard"
-              {...register('email', {required: true})}
+              {...register('name', {required: true})}
             />
-            {errors.email && (
+            {errors.name && (
               <Typography color="error" variant="caption">
-                El campo Email es obligatorio
+                El campo Nombre es obligatorio
               </Typography>
             )}
           </Grid>
@@ -38,13 +38,13 @@ const Form = ({onSubmit}) => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Contraseña"
-              type="password"
+              label="Apellido"
+              type="text"
               variant="standard"
-              {...register('password1', {required: true})}
+              {...register('lastName', {required: true})}
             />
           </Grid>
-          {errors.email && (
+          {errors.lastName && (
             <Typography color="error" variant="caption">
               El campo Contraseña es obligatorio
             </Typography>
@@ -52,35 +52,48 @@ const Form = ({onSubmit}) => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Confirmar contraseña"
-              type="password"
+              label="Titulo o Branch"
+              type="text"
               variant="standard"
-              {...register('password2', {required: true})}
+              {...register('title', {required: true})}
             />
-            {errors.password2 && (
+            {errors.title && (
               <Typography color="error" variant="caption">
-                El campo Repetir Contraseña es obligatorio
+                El campo Titulo es obligatorio
               </Typography>
             )}
-            {password !== '' && repeatPassword !== '' && password !== repeatPassword && (
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              label="Biografia"
+              maxRows={3}
+              minRows={2}
+              type="text"
+              variant="standard"
+              {...register('biography', {required: true})}
+            />
+            {errors.biography && (
               <Typography color="error" variant="caption">
-                Las contraseñas no coinciden
+                El campo biografia es obligatorio
               </Typography>
             )}
+          </Grid>
+          <Grid item xs={12}>
+            {/* <Select */}
           </Grid>
         </Grid>
         <Grid container mt={1} spacing={1}>
           <Grid item xs={6}>
             <Button fullWidth type="submit" variant="contained">
-              Registrarse
+              Enviar
             </Button>
           </Grid>
           <Grid item mb={3} xs={6}>
-            <Link style={{textDecoration: 'none'}} to="/">
-              <Button fullWidth color="secondary" type="reset" variant="contained">
-                Cancelar
-              </Button>
-            </Link>
+            <Button fullWidth color="error" type="reset" variant="text">
+              Cancelar
+            </Button>
           </Grid>
         </Grid>
         <Grid item sx={{paddingBottom: 1}} xs={12}>

@@ -1,10 +1,31 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 import Form from '../components/login/Form'
 import hero from '../assests/undraw_login_re_4vu2.svg'
 
 const Login = () => {
-  const onSubmit = (data) => console.log(data)
+  const navigate = useNavigate()
+  const url = 'http://localhost:8000/api/v1'
+  const onSubmit = (data) => {
+    localStorage.setItem('token', '')
+    localStorage.setItem('userInfo', {})
+    axios
+      .post(`${url}/users/login`, data)
+      .then((res) => {
+        navigate('/profiles')
+        localStorage.setItem('token', res.data.data.token)
+        localStorage.setItem('userInfo', JSON.stringify(res.data.data.user))
+      })
+      .catch((error) => {
+        if (error.response?.status === 404) {
+          alert('Invalid Credentials')
+        } else {
+          console.log(error.response)
+        }
+      })
+  }
 
   return (
     <Container
