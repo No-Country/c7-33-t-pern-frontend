@@ -15,9 +15,10 @@ const AUTHORS = [
     email: 'itati@gmail.com',
   },
   {
-    name: 'Itatí Romero',
-    linkedin: 'https://www.linkedin.com/in/fededg/',
-    email: 'itati@gmail.com',
+    name: 'Maria I. Romero',
+    linkedin: 'https://www.linkedin.com/in/bon-vivant/',
+    email: 'itati3911@gmail.com',
+    github: 'https://github.com/itati3911',
   },
   {
     name: 'Federico González',
@@ -53,7 +54,7 @@ const Footer = () => {
               </Typography>
               <Divider />
               <Typography color={palette.background.paper} variant="body1">
-                &quot;Conecta, gana experienca, crea.&quot;
+                Conecta, gana experiencia, crea.
               </Typography>
             </Box>
             <Grid item lg={3} md={4} sm={6} xs={12}>

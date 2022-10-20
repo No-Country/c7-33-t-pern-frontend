@@ -17,7 +17,6 @@ import {useState} from 'react'
 import CodeIcon from '@mui/icons-material/Code'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import IconButton from '@mui/material/IconButton'
-import {Link} from 'react-router-dom'
 
 const ExpandMore = styled((props) => {
   const {expand, ...other} = props
@@ -31,7 +30,7 @@ const ExpandMore = styled((props) => {
   }),
 }))
 
-const ProfileCard = ({user}) => {
+const ProfileCardUser = ({user}) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
@@ -94,11 +93,9 @@ const ProfileCard = ({user}) => {
         </Stack>
         <Stack alignItems="center" direction="row" flexWrap="wrap" justifyContent="center">
           <CardActions disableSpacing>
-            <Link to="/profile" style={{textDecoration: 'none'}}>
-              <Button color="primary" size="medium" style={{margin: '0 auto'}} variant="contained">
-                Ver perfil
-              </Button>
-            </Link>
+            <Button color="primary" size="medium" style={{margin: '0 auto'}} variant="contained">
+              Este es el perfil de user
+            </Button>
           </CardActions>
         </Stack>
       </CardContent>
@@ -106,4 +103,4 @@ const ProfileCard = ({user}) => {
   )
 }
 
-export default ProfileCard
+export default ProfileCardUser
