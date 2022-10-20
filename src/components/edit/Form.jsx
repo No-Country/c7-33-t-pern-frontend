@@ -1,7 +1,8 @@
-import {Button, Grid, TextField, Typography, Container} from '@mui/material'
+import {Button, Grid, TextField, Typography, Container, Box} from '@mui/material'
 import {useForm} from 'react-hook-form'
 import {useTheme} from '@emotion/react'
 import {Link} from 'react-router-dom'
+import {useState} from 'react'
 
 const Form = ({onSubmit}) => {
   const {
@@ -15,6 +16,17 @@ const Form = ({onSubmit}) => {
 
   const password = watch('password1')
   const repeatPassword = watch('password2')
+
+  const [image, setImage] = useState({preview: '', data: ''})
+
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    }
+
+    setImage(img)
+  }
 
   return (
     <Container className="container-form">
@@ -137,6 +149,19 @@ const Form = ({onSubmit}) => {
                 El campo GitHub es obligatorio
               </Typography>
             )}
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Avatar"
+              type="text"
+              variant="standard"
+              {...register('image', {required: true})}
+            />
+            <Box>
+              <input name="file" type="file" onChange={handleFileChange} />
+            </Box>
           </Grid>
         </Grid>
         <Grid container mt={1} spacing={1}>

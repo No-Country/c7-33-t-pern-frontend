@@ -1,6 +1,7 @@
 import {Button, CardActions, Chip, Grid, Rating, Stack, Typography, useTheme} from '@mui/material'
 import CodeIcon from '@mui/icons-material/Code'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
+import {Link} from 'react-router-dom'
 
 const ProfileCardDetails = ({user}) => {
   const {palette} = useTheme()
@@ -82,9 +83,11 @@ const ProfileCardDetails = ({user}) => {
             >
               Conectar!
             </Button>
-            <Button color="primary" size="large" style={{margin: '0 auto'}} variant="contained">
-              Volver
-            </Button>
+            <Link style={{textDecoration: 'none'}} to="/profiles">
+              <Button color="primary" size="large" style={{margin: '0 auto'}} variant="contained">
+                Volver
+              </Button>
+            </Link>
           </CardActions>
         </Stack>
       </Grid>
