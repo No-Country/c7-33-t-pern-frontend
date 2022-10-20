@@ -5,8 +5,10 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Navbar from '../components/ui/Navbar'
 import Profile from '../pages/Profile'
+import ProfileUser from '../pages/ProfileUser'
 import Profiles from '../pages/Profiles'
 import Register from '../pages/Register'
+import Edit from '../pages/Edit'
 
 const Routers = () => (
   <BrowserRouter>
@@ -17,6 +19,8 @@ const Routers = () => (
       <Route element={<Profile />} path="/profile" />
       <Route element={<Register />} path="/register" />
       <Route element={<Profiles />} path="/profiles" />
+      <Route element={<ProfileUser />} path="/profileuser" />
+      <Route element={<Edit />} path="/edit" />
     </Routes>
     <Footer />
   </BrowserRouter>

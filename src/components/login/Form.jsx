@@ -51,9 +51,11 @@ const Form = ({onSubmit}) => {
             </Button>
           </Grid>
           <Grid item mb={3} xs={6}>
-            <Button fullWidth color="error" type="reset" variant="text">
-              Cancelar
-            </Button>
+            <Link style={{textDecoration: 'none'}} to="/">
+              <Button fullWidth color="secondary" type="reset" variant="contained">
+                Cancelar
+              </Button>{' '}
+            </Link>
           </Grid>
         </Grid>
         <Grid item sx={{paddingBottom: 1}} xs={12}>

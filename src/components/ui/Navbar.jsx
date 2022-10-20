@@ -22,7 +22,9 @@ const pages = [
   {name: 'Perfil', location: '/profile'},
 ]
 const settings = [
-  {name: 'Mi Perfil', location: '/profile'},
+  {name: 'Mi Perfil', location: '/profileuser'},
+  {name: 'Editar perfil', location: '/edit'},
+
   {name: 'Salir', location: '/'},
 ]
 

@@ -52,22 +52,22 @@ const Home = () => {
           </Typography>
           <ul style={{listStyle: 'none'}}>
             <StyledLi color={palette.success.main}>
-              <Typography variant="h6">Conecta con otros perfiles tech.</Typography>
+              <Typography variant="h6">Conecta con otros perfiles tech</Typography>
             </StyledLi>
             <StyledLi color={palette.success.main}>
-              <Typography variant="h6">Suma experiencia trabajando en equipo.</Typography>
+              <Typography variant="h6">Suma experiencia trabajando en equipo</Typography>
             </StyledLi>
             <StyledLi color={palette.success.main}>
               <Typography variant="h6">Crea proyectos geniales!</Typography>
             </StyledLi>
           </ul>
           <Stack direction="row" gap={3} my={3}>
-            <Link to="/login">
+            <Link style={{textDecoration: 'none'}} to="/login">
               <Button color="primary" size="large" type="button" variant="outlined">
                 Ingresar
               </Button>
             </Link>
-            <Link to="/register">
+            <Link style={{textDecoration: 'none'}} to="/register">
               <Button color="secondary" size="large" type="button" variant="contained">
                 Registrarse
               </Button>

@@ -37,6 +37,20 @@ const Form = ({onSubmit}) => {
           <Grid item xs={12}>
             <TextField
               fullWidth
+              label="Apellido"
+              type="text"
+              variant="standard"
+              {...register('lastName', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo Apellido es obligatorio
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
               label="Email"
               type="email"
               variant="standard"
@@ -49,7 +63,7 @@ const Form = ({onSubmit}) => {
             )}
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               fullWidth
               label="Contraseña"
@@ -81,12 +95,54 @@ const Form = ({onSubmit}) => {
                 Las contraseñas no coinciden
               </Typography>
             )}
+          </Grid> */}
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Bio"
+              type="text"
+              variant="standard"
+              {...register('biography', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo Bio es obligatorio
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="LinkedIn"
+              type="text"
+              variant="standard"
+              {...register('linkedin', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo LinkedIn es obligatorio
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="GitHub"
+              type="text"
+              variant="standard"
+              {...register('github', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo GitHub es obligatorio
+              </Typography>
+            )}
           </Grid>
         </Grid>
         <Grid container mt={1} spacing={1}>
           <Grid item xs={6}>
             <Button fullWidth type="submit" variant="contained">
-              Registrarse
+              Guardar
             </Button>
           </Grid>
           <Grid item mb={3} xs={6}>

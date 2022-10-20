@@ -36,13 +36,6 @@ const lightTheme = createTheme({
         },
       },
     },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 10,
-        },
-      },
-    },
   },
 })
 
