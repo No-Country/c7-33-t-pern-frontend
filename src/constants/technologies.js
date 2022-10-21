@@ -1,35 +1,29 @@
 const techCategories = [
   {
     id: '1',
-    name: 'FrontEnd',
+    name: 'BRANCHES',
     tech: [
       {
         id: '1',
-        name: 'React',
+        name: 'Backend',
       },
       {
         id: '2',
-        name: 'Vue',
+        name: 'Frontend',
+      },
+      {
+        id: '3',
+        name: 'UX/UI',
       },
     ],
   },
   {
     id: '2',
-    name: 'BackEnd',
+    name: 'TECHNOLOGIES',
     tech: [
       {
         id: '3',
         name: 'Node',
-      },
-    ],
-  },
-  {
-    id: '3',
-    name: 'Diseño',
-    tech: [
-      {
-        id: '4',
-        name: 'UX/UI',
       },
     ],
   },

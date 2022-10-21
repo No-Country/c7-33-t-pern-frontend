@@ -2,6 +2,9 @@ import {Button, CardActions, Chip, Grid, Rating, Stack, Typography, useTheme} fr
 import CodeIcon from '@mui/icons-material/Code'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import {Link} from 'react-router-dom'
+import EmailIcon from '@mui/icons-material/Email'
+
+import FooterAuthor from '../ui/FooterAuthor'
 
 const ProfileCardDetails = ({user}) => {
   const {palette} = useTheme()
@@ -50,22 +53,23 @@ const ProfileCardDetails = ({user}) => {
           mt={1}
           style={{height: 60}}
         >
-          {user.technologies.map((technology, idx) => {
-            if (idx < 10) {
-              return (
-                <Chip
-                  key={technology}
-                  color="success"
-                  icon={<CodeIcon />}
-                  label={technology}
-                  size="small"
-                  sx={{mb: 1, mr: 1}}
-                />
-              )
-            }
+          {user?.Technologies &&
+            user?.Technologies?.map((technology, idx) => {
+              if (idx < 10) {
+                return (
+                  <Chip
+                    key={crypto.randomUUID()}
+                    color="success"
+                    icon={<CodeIcon />}
+                    label={technology.name}
+                    size="small"
+                    sx={{mb: 1, mr: 1}}
+                  />
+                )
+              }
 
-            return null
-          })}
+              return null
+            })}
         </Stack>
       </Grid>
       <Grid item mt={3} mx={3} xs={12}>
@@ -76,8 +80,9 @@ const ProfileCardDetails = ({user}) => {
           <CardActions disableSpacing>
             <Button
               color="primary"
+              href={`mailto:${user?.User?.email}`}
               size="large"
-              startIcon={<ThumbUpOutlinedIcon />}
+              startIcon={<EmailIcon className="icon" />}
               style={{margin: '10px'}}
               variant="contained"
             >

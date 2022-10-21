@@ -94,7 +94,7 @@ const ProfileCard = ({user}) => {
         </Stack>
         <Stack alignItems="center" direction="row" flexWrap="wrap" justifyContent="center">
           <CardActions disableSpacing>
-            <Link to="/profile" style={{textDecoration: 'none'}}>
+            <Link style={{textDecoration: 'none'}} to={`/profile/${user.id}`}>
               <Button color="primary" size="medium" style={{margin: '0 auto'}} variant="contained">
                 Ver perfil
               </Button>

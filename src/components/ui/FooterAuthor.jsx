@@ -12,9 +12,11 @@ const FooterAuthor = ({author}) => {
       mb={1}
       style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
     >
-      <Grid item>
-        <Typography variant="body1">{author.name}</Typography>
-      </Grid>
+      {author.name && (
+        <Grid item>
+          <Typography variant="body1">{author.name}</Typography>
+        </Grid>
+      )}{' '}
       <Grid item>
         <div style={{flex: 1}} />
       </Grid>

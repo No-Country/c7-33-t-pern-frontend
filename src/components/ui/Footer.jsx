@@ -5,14 +5,16 @@ import FooterSVG from './FooterSVG'
 
 const AUTHORS = [
   {
-    name: 'Alex 1',
-    linkedin: 'https://www.linkedin.com/in/fededg/',
-    email: 'itati@gmail.com',
+    name: 'Alex Terrones Rivera',
+    linkedin: 'https://www.linkedin.com/in/alextrdev/',
+    email: 'alextrdev@gmail.com',
+    github: 'https://github.com/alextrdev',
   },
   {
     name: 'Alex 2',
     linkedin: 'https://www.linkedin.com/in/fededg/',
     email: 'itati@gmail.com',
+    github: 'https://github.com/',
   },
   {
     name: 'Maria I. Romero',
@@ -28,7 +30,8 @@ const AUTHORS = [
   },
 ]
 
-const Footer = () => {
+const Footer = ({conectar}) => {
+  const users = conectar ?? AUTHORS
   const {palette} = useTheme()
 
   return (
@@ -62,7 +65,7 @@ const Footer = () => {
                 AUTORES
               </Typography>
               <Stack>
-                {AUTHORS.map((author) => (
+                {users.map((author) => (
                   <FooterAuthor key={`${author.name} ${author.lastname}`} author={author} />
                 ))}
               </Stack>
