@@ -95,12 +95,15 @@ const Profiles = () => {
 
   return (
     <>
-      <Input
-        placeholder="Buscar por Nombre o Branch"
-        sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30%'}}
-        type="search"
-        onChange={handleSearch}
-      />
+      <div className="search-container">
+        <Input
+          placeholder="Buscar por Nombre o Branch"
+          sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30%'}}
+          type="search"
+          onChange={handleSearch}
+        />
+      </div>
+
       <Container
         maxWidth="xl"
         sx={{

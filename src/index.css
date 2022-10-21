@@ -48,3 +48,10 @@
   overflow: hidden;
   line-height: 0;
 }
+
+.search-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
