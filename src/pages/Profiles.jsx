@@ -9,13 +9,14 @@ import Spinner from '../components/ui/Spinner'
 // import techCategories from '../constants/technologies'
 // import usersMock from '../constants/users'
 
-const URL_API = 'http://localhost:8000/api/v1'
+const URL_API = 'https://tindev-depoy.onrender.com/api/v1'
 
 const Profiles = () => {
   const [users, setUsers] = useState([])
   const [techCategory, setTechCategory] = useState([])
   const [filters, setFilters] = useState([])
   const [search, setSearch] = useState('')
+  const token = localStorage.getItem('token')
 
   /* TODO: Implementar Spinner */
   const loading = false
@@ -30,7 +31,7 @@ const Profiles = () => {
     const getTechnologies = async () => {
       const {data: response} = await axios(`${URL_API}/technologies`, {
         headers: {
-          authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MzAxMDYyLCJleHAiOjE2Njg4OTMwNjJ9.vMSKIKyWFeSQQRSwgjUC97wOaMFo-cNnqXGZ-My3sFs`,
+          authorization: `Bearer ${token}`,
         },
       })
 
@@ -67,7 +68,7 @@ const Profiles = () => {
     const getTechnologies = async () => {
       const {data: response} = await axios(`${URL_API}/profiles?${query}`, {
         headers: {
-          authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MzAyMDU1LCJleHAiOjE2Njg4OTQwNTV9._5WSScinePgb4dVt9SuO86WrbSNagvXs2LJiUXPcZZM`,
+          authorization: `Bearer ${token}`,
         },
       })
       const array = []

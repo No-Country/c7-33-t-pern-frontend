@@ -1,6 +1,6 @@
 import {Box, useTheme} from '@mui/material'
-import {Link, NavLink} from 'react-router-dom'
-import {useState} from 'react'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
+import {useContext, useEffect, useState} from 'react'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -15,18 +15,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import styled from '@emotion/styled'
 
-const pages = [
-  {name: 'Ingresar', location: '/login'},
-  {name: 'Registrarse', location: '/register'},
-  {name: 'Perfiles', location: '/profiles'},
-  {name: 'Perfil', location: '/profile'},
-]
-const settings = [
-  {name: 'Mi Perfil', location: '/profileuser'},
-  {name: 'Editar perfil', location: '/edit'},
-
-  {name: 'Salir', location: '/'},
-]
+import appContext from '../../context/AppContext'
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
@@ -38,9 +27,40 @@ const StyledNavLink = styled(NavLink)`
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+  const [pages, setPages] = useState([])
+  const [settings, setSettings] = useState([])
+  const [token, setToken] = useState(localStorage.getItem('token'))
 
+  const navigate = useNavigate()
+  // const user = JSON.parse(localStorage.getItem('userInfo'))
+
+  // console.log(user)
   const {palette} = useTheme()
+  // const token = localStorage.getItem('token')
 
+  const conext = useContext(appContext)
+
+  useEffect(() => {
+    if (token !== '') {
+      setPages([{name: 'Perfiles', location: '/profiles'}])
+    } else {
+      setPages([
+        {name: 'Ingresar', location: '/login'},
+        {name: 'Registrarse', location: '/register'},
+        {name: 'Perfiles', location: '/profiles'},
+      ])
+    }
+
+    if (token !== '') {
+      setSettings([
+        {name: 'Mi Perfil', location: '/profileuser'},
+
+        {name: 'Salir', location: '/'},
+      ])
+    } else {
+      setSettings([{name: 'Log in', location: '/login'}])
+    }
+  }, [token])
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -54,6 +74,15 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleExist = () => {
+    localStorage.setItem('token', '')
+    localStorage.setItem('userInfo', '')
+    setToken(localStorage.getItem('token'))
+    navigate('/')
+    handleCloseUserMenu()
+    conext.dispatch({type: 'LOGOUT', payload: {}})
   }
 
   return (
@@ -168,7 +197,7 @@ const ResponsiveAppBar = () => {
               <IconButton sx={{p: 0}} onClick={handleOpenUserMenu}>
                 <Avatar
                   alt="Remy Sharp"
-                  src="https://img.freepik.com/free-photo/close-up-portrait-handsome-stylish-young-man-standing-profile-turn-head-with-beaming-smile-express-satisfaction-enthusiasm-standing-white-wall-pleased_176420-33957.jpg?size=626&ext=jpg"
+                  src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
                 />
               </IconButton>
             </Tooltip>
@@ -188,13 +217,21 @@ const ResponsiveAppBar = () => {
               }}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Link style={{color: 'inherit', textDecoration: 'none'}} to={setting.location}>
-                    <Typography textAlign="center">{setting.name}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
+              {settings.map((setting) =>
+                setting.name === 'Salir' ? (
+                  <MenuItem key={setting.name} onClick={handleExist}>
+                    <Link style={{color: 'inherit', textDecoration: 'none'}} to={setting.location}>
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                ) : (
+                  <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                    <Link style={{color: 'inherit', textDecoration: 'none'}} to={setting.location}>
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                )
+              )}
             </Menu>
           </Box>
         </Toolbar>

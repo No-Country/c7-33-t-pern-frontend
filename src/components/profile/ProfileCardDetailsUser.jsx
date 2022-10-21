@@ -1,8 +1,12 @@
 import {Button, CardActions, Chip, Grid, Rating, Stack, Typography, useTheme} from '@mui/material'
 import CodeIcon from '@mui/icons-material/Code'
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import {Link} from 'react-router-dom'
+import EmailIcon from '@mui/icons-material/Email'
 
-const ProfileCardDetailsUser = ({user}) => {
+import FooterAuthor from '../ui/FooterAuthor'
+
+const ProfileCardDetails = ({user}) => {
   const {palette} = useTheme()
 
   return (
@@ -49,22 +53,23 @@ const ProfileCardDetailsUser = ({user}) => {
           mt={1}
           style={{height: 60}}
         >
-          {user.technologies.map((technology, idx) => {
-            if (idx < 10) {
-              return (
-                <Chip
-                  key={technology}
-                  color="success"
-                  icon={<CodeIcon />}
-                  label={technology}
-                  size="small"
-                  sx={{mb: 1, mr: 1}}
-                />
-              )
-            }
+          {user?.Technologies &&
+            user?.Technologies?.map((technology, idx) => {
+              if (idx < 10) {
+                return (
+                  <Chip
+                    key={crypto.randomUUID()}
+                    color="success"
+                    icon={<CodeIcon />}
+                    label={technology.name}
+                    size="small"
+                    sx={{mb: 1, mr: 1}}
+                  />
+                )
+              }
 
-            return null
-          })}
+              return null
+            })}
         </Stack>
       </Grid>
       <Grid item mt={3} mx={3} xs={12}>
@@ -73,13 +78,18 @@ const ProfileCardDetailsUser = ({user}) => {
       <Grid item xs={12}>
         <Stack alignItems="center" direction="row" flexWrap="wrap" justifyContent="center">
           <CardActions disableSpacing>
-            <Link to="/edit" style={{textDecoration: 'none'}}>
-              <Button color="primary" size="large" style={{margin: '10px'}} variant="contained">
-                Editar perfil
-              </Button>
-            </Link>
-            <Link to="/" style={{textDecoration: 'none'}}>
-              <Button color="primary" size="large" style={{margin: '10px'}} variant="contained">
+            {/* <Button
+              color="primary"
+              href={`mailto:${user?.User?.email}`}
+              size="large"
+              startIcon={<EmailIcon className="icon" />}
+              style={{margin: '10px'}}
+              variant="contained"
+            >
+              Conectar!
+            </Button> */}
+            <Link style={{textDecoration: 'none'}} to="/profiles">
+              <Button color="primary" size="large" style={{margin: '0 auto'}} variant="contained">
                 Volver
               </Button>
             </Link>
@@ -90,4 +100,4 @@ const ProfileCardDetailsUser = ({user}) => {
   )
 }
 
-export default ProfileCardDetailsUser
+export default ProfileCardDetails

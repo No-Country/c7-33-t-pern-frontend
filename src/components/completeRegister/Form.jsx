@@ -1,20 +1,70 @@
-import {Button, Grid, TextField, Typography, Container, Select} from '@mui/material'
+import {Button, Grid, TextField, Typography, Container} from '@mui/material'
 import {useForm} from 'react-hook-form'
 import {useTheme} from '@emotion/react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import {useEffect, useState} from 'react'
+import axios from 'axios'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
 
-const Form = ({onSubmit}) => {
+const Form = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: {errors},
   } = useForm()
 
+  const animatedComponents = makeAnimated()
   const {palette} = useTheme()
+  const url = 'https://tindev-depoy.onrender.com/api/v1'
+  const navigate = useNavigate()
 
-  const password = watch('password1')
-  const repeatPassword = watch('password2')
+  const [technologies, setTechnologies] = useState([])
+  const [selectedTech, setSelectedTech] = useState(null)
+
+  const mapTech = (technologies) => {
+    const mappedTech = technologies.map((tech) => ({label: tech.name, value: tech.id}))
+
+    setTechnologies(mappedTech)
+  }
+
+  const onSubmit = async (data) => {
+    const profile = new FormData()
+
+    profile.append('name', data.name)
+    profile.append('lastName', data.lastName)
+    profile.append('biography', data.biography)
+    profile.append('title', data.title)
+    profile.append('avatar', data.avatar[0])
+
+    for (let i = 0; i < technologies.length; i += 1) {
+      profile.append('TechIds', technologies[i].value)
+    }
+
+    const token = localStorage.getItem('token')
+    const user = JSON.parse(localStorage.getItem('userInfo'))
+
+    const res = await axios
+      .post(`${url}/profiles/user/${user.id}`, profile, {
+        headers: {authorization: `Bearer ${token}`},
+      })
+      .then(async () => {
+        navigate('/profiles')
+        await axios
+          .get(`${url}/users/${user.id}`, {
+            headers: {authorization: `Bearer ${token}`},
+          })
+          .then((res) => {
+            localStorage.setItem('userInfo', JSON.stringify(res.data.data))
+          })
+      })
+  }
+
+  useEffect(() => {
+    axios.get(`${url}/technologies`).then((res) => {
+      mapTech(res.data.data)
+    })
+  }, [])
 
   return (
     <Container className="container-form">
@@ -69,7 +119,6 @@ const Form = ({onSubmit}) => {
               multiline
               label="Biografia"
               maxRows={3}
-              minRows={2}
               type="text"
               variant="standard"
               {...register('biography', {required: true})}
@@ -81,7 +130,55 @@ const Form = ({onSubmit}) => {
             )}
           </Grid>
           <Grid item xs={12}>
-            {/* <Select */}
+            <TextField
+              fullWidth
+              label="LinkedIn"
+              type="text"
+              variant="standard"
+              {...register('linkedin', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo LinkedIn es obligatorio
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="GitHub"
+              type="text"
+              variant="standard"
+              {...register('github', {required: true})}
+            />
+            {errors.email && (
+              <Typography color="error" variant="caption">
+                El campo GitHub es obligatorio
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <label>
+              <p>Foto de Perfil</p>
+              <input label="Foto de Perfil" type="file" {...register('avatar', {required: true})} />
+            </label>
+            {errors.biography && (
+              <Typography color="error" variant="caption">
+                La foto de perfil es obligatoria
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <label>
+              <p>Tecnologias que usas</p>
+              <Select
+                isMulti
+                isSearchable
+                components={animatedComponents}
+                options={technologies}
+                onChange={setSelectedTech}
+              />
+            </label>
           </Grid>
         </Grid>
         <Grid container mt={1} spacing={1}>
@@ -95,14 +192,6 @@ const Form = ({onSubmit}) => {
               Cancelar
             </Button>
           </Grid>
-        </Grid>
-        <Grid item sx={{paddingBottom: 1}} xs={12}>
-          <Typography variant="caption">
-            Ya tienes una cuenta?{' '}
-            <Link style={{color: palette.primary.main}} to="/login">
-              Ingresa aquí
-            </Link>
-          </Typography>
         </Grid>
       </form>
     </Container>

@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom'
 
 import Footer from '../components/ui/Footer'
 import Home from '../pages/Home'
@@ -10,22 +10,26 @@ import Profiles from '../pages/Profiles'
 import Register from '../pages/Register'
 import CompleteRegister from '../pages/CompleteRegister'
 import Edit from '../pages/Edit'
+import ProtectedRoutes from '../components/protectedRoutes/protectedRoutes'
 
 const Routers = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Navbar />
     <Routes>
       <Route element={<Home />} path="/" />
       <Route element={<Login />} path="/login" />
-      <Route element={<Profile />} path="/profile/:userId" />
       <Route element={<Register />} path="/register" />
-      <Route element={<CompleteRegister />} path="/complete-register" />
-      <Route element={<Profiles />} path="/profiles" />
-      <Route element={<ProfileUser />} path="/profileuser" />
-      <Route element={<Edit />} path="/edit" />
+      <Route element={<ProtectedRoutes />}>
+        <Route element={<Edit />} path="/edit" />
+        <Route element={<Profile />} path="/profile/:userId" />
+        <Route element={<CompleteRegister />} path="/complete-register" />
+        <Route element={<Profiles />} path="/profiles" />
+        <Route element={<ProfileUser />} path="/profileuser" />
+        <Route element={<Edit />} path="/edit" />
+      </Route>
     </Routes>
     <Footer />
-  </BrowserRouter>
+  </HashRouter>
 )
 
 export default Routers

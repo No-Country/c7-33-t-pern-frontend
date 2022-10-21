@@ -6,17 +6,18 @@ import axios from 'axios'
 // import userDetails from '../constants/userDetails'
 import ProfileCardDetails from '../components/profile/ProfileCardDetails'
 
-const URL_API = 'http://localhost:8000/api/v1'
+const URL_API = 'https://tindev-depoy.onrender.com/api/v1'
 
 const Profile = () => {
   const [user, setUser] = useState({})
   const {userId} = useParams()
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     const getUser = async () => {
       const {data: response} = await axios(`${URL_API}/profiles/${userId}`, {
         headers: {
-          authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MzAxMDYyLCJleHAiOjE2Njg4OTMwNjJ9.vMSKIKyWFeSQQRSwgjUC97wOaMFo-cNnqXGZ-My3sFs`,
+          authorization: `Bearer ${token}`,
         },
       })
 

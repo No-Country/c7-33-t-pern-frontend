@@ -6,14 +6,23 @@ import Form from '../components/register/Form'
 import hero from '../assests/undraw_coding_re_iv62.svg'
 
 const Register = () => {
-  const url = 'http://localhost:8000/api/v1'
+  const url = 'https://tindev-depoy.onrender.com/api/v1'
   const navigate = useNavigate()
   const onSubmit = (data) => {
     const newUser = {email: data.email, password: data.password1}
 
-    axios.post(`${url}/users/singup`, newUser).then(() => {
-      navigate('/login')
-    })
+    axios
+      .post(`${url}/users/singup`, newUser)
+      .then(() => {
+        navigate('/login')
+      })
+      .catch((error) => {
+        if (error.response.data.message === 'Validation error') {
+          alert('This Email is already in use')
+        } else {
+          alert(error.response.data.message)
+        }
+      })
   }
 
   return (

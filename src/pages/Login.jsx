@@ -1,22 +1,32 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import {useContext} from 'react'
 
 import Form from '../components/login/Form'
 import hero from '../assests/undraw_login_re_4vu2.svg'
+import appContext from '../context/AppContext'
 
 const Login = () => {
+  const context = useContext(appContext)
   const navigate = useNavigate()
-  const url = 'http://localhost:8000/api/v1'
+  const url = 'https://tindev-depoy.onrender.com/api/v1'
   const onSubmit = (data) => {
     localStorage.setItem('token', '')
     localStorage.setItem('userInfo', {})
     axios
       .post(`${url}/users/login`, data)
       .then((res) => {
-        navigate('/profiles')
         localStorage.setItem('token', res.data.data.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.data.user))
+        console.log(res.data.data)
+        if (!res.data.data.user.Profile) {
+          navigate('/complete-register')
+        } else {
+          navigate('/profiles')
+        }
+        context.dispatch({type: 'LOGIN', payload: res.data.data.user})
+        window.location.reload(false)
       })
       .catch((error) => {
         if (error.response?.status === 404) {

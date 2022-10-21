@@ -11,10 +11,10 @@ const AUTHORS = [
     github: 'https://github.com/alextrdev',
   },
   {
-    name: 'Alex 2',
-    linkedin: 'https://www.linkedin.com/in/fededg/',
-    email: 'itati@gmail.com',
-    github: 'https://github.com/',
+    name: 'Oscar Solorzano',
+    linkedin: 'https://www.linkedin.com/in/oscar-solorzano/',
+    email: 'oscar.solorzano98@gmail.com',
+    github: 'https://github.com/OscarSolorzano',
   },
   {
     name: 'Maria I. Romero',
