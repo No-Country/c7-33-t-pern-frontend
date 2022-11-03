@@ -23,7 +23,10 @@ const ProfileUser = () => {
         headers: {
           authorization: `Bearer ${token}`,
         },
-      }).then(res => setUser(response.data))
+      }).then(
+        res => {
+        dispatch(setIsLoading(false))
+        setUser(response.data)})
       .catch((error) => {
         if (error.response?.status === 404) {
           navigate('/complete-register')
