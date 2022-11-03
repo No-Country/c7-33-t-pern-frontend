@@ -2,12 +2,16 @@ import {Box, CircularProgress, Container, Typography} from '@mui/material'
 
 const Spinner = ({height}) => (
   <Container
-    maxWidth="xl"
     sx={{
+      position: 'fixed',
+      zIndex: '100',
+      background: 'rgba(0,0,0,.4)',
+      minWidth: '100vw',
+      height: '100vh',
+
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      minHeight: 'calc(100vh - 210px - 69px)',
     }}
   >
     <Box

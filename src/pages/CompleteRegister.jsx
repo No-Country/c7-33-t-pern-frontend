@@ -1,6 +1,4 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
-import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
 
 import Form from '../components/completeRegister/Form'
 import hero from '../assests/undraw_coding_re_iv62.svg'

@@ -1,11 +1,13 @@
 import {Button, Grid, TextField, Typography, Container} from '@mui/material'
 import {useForm} from 'react-hook-form'
-import {useTheme} from '@emotion/react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
+import {useDispatch} from 'react-redux'
+
+import {setIsLoading} from '../store/slices/isLoading.slice'
 
 const Form = () => {
   const {
@@ -15,7 +17,6 @@ const Form = () => {
   } = useForm()
 
   const animatedComponents = makeAnimated()
-  const {palette} = useTheme()
   const url = 'https://tindev-depoy.onrender.com/api/v1'
   const navigate = useNavigate()
 
@@ -29,6 +30,7 @@ const Form = () => {
   }
 
   const onSubmit = async (data) => {
+    dispatch(setIsLoading(true))
     const profile = new FormData()
 
     profile.append('name', data.name)
@@ -55,6 +57,7 @@ const Form = () => {
             headers: {authorization: `Bearer ${token}`},
           })
           .then((res) => {
+            dispatch(setIsLoading(false))
             localStorage.setItem('userInfo', JSON.stringify(res.data.data))
           })
       })

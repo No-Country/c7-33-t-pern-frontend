@@ -1,22 +1,28 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 
+import {setIsLoading} from '../store/slices/isLoading.slice'
 import Form from '../components/register/Form'
 import hero from '../assests/undraw_coding_re_iv62.svg'
 
 const Register = () => {
   const url = 'https://tindev-depoy.onrender.com/api/v1'
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const onSubmit = (data) => {
     const newUser = {email: data.email, password: data.password1}
 
+    dispatch(setIsLoading(true))
     axios
       .post(`${url}/users/singup`, newUser)
       .then(() => {
+        dispatch(setIsLoading(false))
         navigate('/login')
       })
       .catch((error) => {
+        dispatch(setIsLoading(false))
         if (error.response.data.message === 'Validation error') {
           alert('This Email is already in use')
         } else {

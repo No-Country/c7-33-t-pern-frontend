@@ -1,36 +1,37 @@
 import {Box, Container, Grid, Paper} from '@mui/material'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-import {useContext} from 'react'
+import {useDispatch} from 'react-redux'
 
+import {setIsLoading} from '../store/slices/isLoading.slice'
 import Form from '../components/login/Form'
 import hero from '../assests/undraw_login_re_4vu2.svg'
-import appContext from '../context/AppContext'
 
 const Login = () => {
-  const context = useContext(appContext)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const url = 'https://tindev-depoy.onrender.com/api/v1'
+
   const onSubmit = (data) => {
     localStorage.setItem('token', '')
     localStorage.setItem('userInfo', {})
+    dispatch(setIsLoading(true))
     axios
       .post(`${url}/users/login`, data)
       .then((res) => {
         localStorage.setItem('token', res.data.data.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.data.user))
-        console.log(res.data.data)
+        dispatch(setIsLoading(false))
         if (!res.data.data.user.Profile) {
           navigate('/complete-register')
         } else {
           navigate('/profiles')
         }
-        context.dispatch({type: 'LOGIN', payload: res.data.data.user})
-        window.location.reload(false)
       })
       .catch((error) => {
-        if (error.response?.status === 404) {
-          alert('Invalid Credentials')
+        if (error.response?.status === 400) {
+          dispatch(setIsLoading(false))
+          alert('Credenciales incorrectas')
         } else {
           console.log(error.response)
         }

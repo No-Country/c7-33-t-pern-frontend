@@ -15,8 +15,6 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import styled from '@emotion/styled'
 
-import appContext from '../../context/AppContext'
-
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   padding: 8px 16px;
@@ -37,8 +35,6 @@ const ResponsiveAppBar = () => {
   // console.log(user)
   const {palette} = useTheme()
   // const token = localStorage.getItem('token')
-
-  const conext = useContext(appContext)
 
   useEffect(() => {
     if (token !== '') {
@@ -82,7 +78,6 @@ const ResponsiveAppBar = () => {
     setToken(localStorage.getItem('token'))
     navigate('/')
     handleCloseUserMenu()
-    conext.dispatch({type: 'LOGOUT', payload: {}})
   }
 
   return (

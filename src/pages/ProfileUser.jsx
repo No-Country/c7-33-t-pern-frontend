@@ -1,13 +1,15 @@
 import {Container} from '@mui/material'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-
-import userDetails from '../constants/userDetails'
+import {useDispatch} from 'react-redux'
+import {setIsLoading} from '../store/slices/isLoading.slice'
 import ProfileCardDetailsUser from '../components/profile/ProfileCardDetailsUser'
+import { useNavigate } from 'react-router-dom'
 // import ProfileCardDetails from '../components/profile/ProfileCardDetails'
 
 const ProfileUser = () => {
-  // const [user, setuser] = useState(userDetails)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userLogged = JSON.parse(localStorage.getItem('userInfo'))
 
   const URL_API = 'https://tindev-depoy.onrender.com/api/v1'
@@ -16,13 +18,21 @@ const ProfileUser = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const {data: response} = await axios(`${URL_API}/profiles/${userLogged.id}`, {
+      dispatch(setIsLoading(true))
+       await axios.get(`${URL_API}/profiles/${userLogged?.Profile?.id}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
+      }).then(res => setUser(response.data))
+      .catch((error) => {
+        if (error.response?.status === 404) {
+          navigate('/complete-register')
+          dispatch(setIsLoading(false))
+          alert('Por favor complete su perfil')
+        } else {
+          console.log(error.response)
+        }
       })
-
-      if (response.status === 'success') setUser(response.data)
     }
 
     getUser()

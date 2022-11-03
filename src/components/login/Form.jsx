@@ -34,6 +34,7 @@ const Form = ({onSubmit}) => {
             <TextField
               fullWidth
               label="Contraseña"
+              type="password"
               variant="standard"
               {...register('password', {required: true})}
             />
