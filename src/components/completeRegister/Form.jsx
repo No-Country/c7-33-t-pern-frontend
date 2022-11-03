@@ -7,7 +7,7 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import {useDispatch} from 'react-redux'
 
-import {setIsLoading} from '../store/slices/isLoading.slice'
+import {setIsLoading} from '../../store/slices/isLoading.slice'
 
 const Form = () => {
   const {
@@ -19,6 +19,7 @@ const Form = () => {
   const animatedComponents = makeAnimated()
   const url = 'https://tindev-depoy.onrender.com/api/v1'
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [technologies, setTechnologies] = useState([])
   const [selectedTech, setSelectedTech] = useState(null)
