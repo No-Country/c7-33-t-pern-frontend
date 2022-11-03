@@ -1,8 +1,10 @@
 import {Button, Box, Grid, Stack, Typography, Container, useTheme} from '@mui/material'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import hero from '../assests/undraw_Code_thinking_re_gka2.svg'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const StyledLi = styled.li`
   position: relative;
@@ -22,6 +24,14 @@ const StyledLi = styled.li`
 
 const Home = () => {
   const {palette} = useTheme()
+
+  const isLogged = useSelector((state) => state.isLogged)
+  const navigate = useNavigate()
+
+
+  useEffect(()=>{
+    if(isLogged) navigate('/profiles')
+  },[])
 
   return (
     <Container

@@ -5,9 +5,7 @@ import {useEffect, useState} from 'react'
 
 import ProfileContainer from '../components/profiles/ProfileContainer'
 import Filter from '../components/search/Filter'
-import Spinner from '../components/ui/Spinner'
-// import techCategories from '../constants/technologies'
-// import usersMock from '../constants/users'
+
 
 const URL_API = 'https://tindev-depoy.onrender.com/api/v1'
 
@@ -18,10 +16,7 @@ const Profiles = () => {
   const [search, setSearch] = useState('')
   const token = localStorage.getItem('token')
 
-  /* TODO: Implementar Spinner */
-  const loading = false
 
-  if (loading) return <Spinner />
 
   const handleSearch = (e) => {
     setSearch(e.target.value)

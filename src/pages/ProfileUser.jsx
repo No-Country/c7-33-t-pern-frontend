@@ -26,7 +26,7 @@ const ProfileUser = () => {
       }).then(
         res => {
         dispatch(setIsLoading(false))
-        setUser(response.data)})
+        setUser(res.data.data)})
       .catch((error) => {
         if (error.response?.status === 404) {
           navigate('/complete-register')
@@ -40,7 +40,7 @@ const ProfileUser = () => {
 
     getUser()
   }, [])
-
+  console.log(user)
   return (
     <Container
       maxWidth="xl"

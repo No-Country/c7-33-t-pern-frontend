@@ -14,6 +14,8 @@ import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import styled from '@emotion/styled'
+import {useDispatch, useSelector} from 'react-redux'
+import {setIsLogged} from '../../store/slices/isLogged.slice'
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
@@ -27,17 +29,17 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const [pages, setPages] = useState([])
   const [settings, setSettings] = useState([])
-  const [token, setToken] = useState(localStorage.getItem('token'))
+  const isLogged = useSelector((state) => state.isLogged)
 
   const navigate = useNavigate()
-  // const user = JSON.parse(localStorage.getItem('userInfo'))
+  const dispatch = useDispatch()
 
-  // console.log(user)
+
   const {palette} = useTheme()
-  // const token = localStorage.getItem('token')
+
 
   useEffect(() => {
-    if (token !== '') {
+    if (isLogged) {
       setPages([{name: 'Perfiles', location: '/profiles'}])
     } else {
       setPages([
@@ -47,7 +49,7 @@ const ResponsiveAppBar = () => {
       ])
     }
 
-    if (token !== '') {
+    if (isLogged) {
       setSettings([
         {name: 'Mi Perfil', location: '/profileuser'},
 
@@ -56,7 +58,7 @@ const ResponsiveAppBar = () => {
     } else {
       setSettings([{name: 'Log in', location: '/login'}])
     }
-  }, [token])
+  }, [isLogged])
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -75,7 +77,7 @@ const ResponsiveAppBar = () => {
   const handleExist = () => {
     localStorage.setItem('token', '')
     localStorage.setItem('userInfo', '')
-    setToken(localStorage.getItem('token'))
+    dispatch(setIsLogged(false))
     navigate('/')
     handleCloseUserMenu()
   }

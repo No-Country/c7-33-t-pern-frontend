@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 
 import {setIsLoading} from '../store/slices/isLoading.slice'
+import {setIsLogged} from '../store/slices/isLogged.slice'
 import Form from '../components/login/Form'
 import hero from '../assests/undraw_login_re_4vu2.svg'
 
@@ -22,6 +23,8 @@ const Login = () => {
         localStorage.setItem('token', res.data.data.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.data.user))
         dispatch(setIsLoading(false))
+        dispatch(setIsLogged(true))
+
         if (!res.data.data.user.Profile) {
           navigate('/complete-register')
         } else {
